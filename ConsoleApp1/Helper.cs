@@ -31,6 +31,7 @@ namespace ConsoleApp1
             var round_p3 = Math.Round(p3, 2);
             var round_p1 = Math.Round(1 - round_p2 - round_p3, 2);
 
+
             return new Probabilities
             {
                 P1 = round_p1,
