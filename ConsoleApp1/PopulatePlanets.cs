@@ -75,7 +75,7 @@ namespace ConsoleApp1
 
             int mediumSizePoss = (int)(size * possibilities.P2);
 
-            for (var q = 0; q < mediumSizePoss; q++)
+            for (var i = 0; i < mediumSizePoss; i++)
             {
                 list1.Add(r2);
             }
