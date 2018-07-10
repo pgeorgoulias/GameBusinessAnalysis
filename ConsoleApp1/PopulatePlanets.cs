@@ -43,6 +43,7 @@ namespace ConsoleApp1
             for (var i = 0; i < n; i++)
             {
                 result.Add(ChooseRandom(prob, r1, r2, r3));
+
             }
 
             return result;
@@ -63,7 +64,7 @@ namespace ConsoleApp1
             return result;
         }
 
-        private static int ChooseRandom(Probabilities possibilities, int r1, int r2, int r3)
+        public static int ChooseRandom(Probabilities possibilities, int r1, int r2, int r3)
         {
             var list1 = new List<int>();
             int size = 1000;
@@ -71,6 +72,7 @@ namespace ConsoleApp1
             for (var k = 0; k < size * possibilities.P1; k++)
             {
                 list1.Add(r1);
+                
             }
 
             int mediumSizePoss = (int)(size * possibilities.P2);

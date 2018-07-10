@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace ConsoleApp1
         public static int r3 = 1000;
         public static int ProbabilitiesSize = 1000;
 
-        public static void Test(int budgetinEuro, int monthlyUsers)
+        public static void Test(int budgetinEuro, int monthlyUsers, ExcelWorksheet pg)
         {
             var budgetinCrystals = DailyCrystals.ConvertToCrystals(budgetinEuro);
             var winsPerDays = new List<int>() { };
@@ -26,7 +27,7 @@ namespace ConsoleApp1
 
                 var avg = DailyCrystals.DailyBudgetPerWin(30 - i, budgetinCrystals, winsPerDay);
 
-                int actualAverageCostPerWin = (int)NPlanetsRecursiveTestsForAverage(avg, 3, winsPerDay);
+                int actualAverageCostPerWin = (int)NPlanetsRecursiveTestsForAverage(avg, 3, winsPerDay,pg);
                 var daylyCost = winsPerDay * actualAverageCostPerWin;
                 budgetinCrystals = budgetinCrystals - daylyCost;
 
@@ -44,7 +45,6 @@ namespace ConsoleApp1
             decimal dif = (budgetinCrystals / initialValue) * (decimal)budgetinEuro;
             Console.WriteLine(dif);
 
-            Console.ReadLine();
         }
 
         public static int GetRandomUsers(int center)
@@ -53,7 +53,7 @@ namespace ConsoleApp1
             return random.Next(center - 500, center + 500);
         }
 
-        public static double NPlanetsRecursiveTestsForAverage(int avg, int n, int iterations = 10000)
+        public static double NPlanetsRecursiveTestsForAverage(int avg, int n, int iterations, ExcelWorksheet pg)
         {
             var partialAvg = avg / n;
             var probs = Helper.GetProbabilities(partialAvg, r1, r2, r3);
@@ -64,10 +64,17 @@ namespace ConsoleApp1
             for (var i = 0; i < iterations; i++)
             {
                 var testSum = new List<int> { };
-                for (var j = 0; j < n; j++)
+
+
+
+                for (var j = 2; j < n; j++)
                 {
                     var random = ChooseRandom(items);
                     testSum.Add(random);
+                     
+                    pg.Cells[j, 1].Value = random;
+              
+
                 }
 
                 session.Add(testSum.Sum());
@@ -76,7 +83,7 @@ namespace ConsoleApp1
             return session.Average();
         }
 
-        public static double RecursiveTestsForAverage(int avg, int iterations = 10000)
+        public static double RecursiveTestsForAverage(int avg, ExcelWorksheet sheet, int iterations = 10000)
         {
             var probs = Helper.GetProbabilities(avg, r1, r2, r3);
             var items = GetProbList(probs);
@@ -86,6 +93,7 @@ namespace ConsoleApp1
             for (var i = 0; i < iterations; i++)
             {
                 var random = ChooseRandom(items);
+                // Print in the cell in excel.
                 test.Add(random);
             }
 
@@ -96,6 +104,7 @@ namespace ConsoleApp1
         {
             var random = new Random(DateTime.Now.Millisecond);
             var randomSelection = random.Next(ProbabilitiesSize);
+
             return items.ToArray()[randomSelection];
         }
 
