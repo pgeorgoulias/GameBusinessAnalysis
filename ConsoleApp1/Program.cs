@@ -17,15 +17,16 @@ namespace ConsoleApp1
             var path = "C:\\Users\\Panos\\Desktop\\test.xlsx";
             if (File.Exists(path))
             {
-                File.Delete(path);
+                 File.Delete(path);
             }
             using (ExcelPackage xlPackage = new ExcelPackage(new System.IO.FileInfo("C:\\Users\\Panos\\Desktop\\test.xlsx")))
             {
                 var mysheet = getSheet(xlPackage);
-                PlainService.Test(10000,50000, mysheet);
+                PlainService.Test(10000,20000, mysheet);
                 mysheet.Cells[1, 1].Value = "Selected Planets";
 
                 xlPackage.Save();
+                Console.ReadLine();
             }
 
             

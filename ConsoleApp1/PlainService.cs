@@ -28,8 +28,8 @@ namespace ConsoleApp1
                 var avg = DailyCrystals.DailyBudgetPerWin(30 - i, budgetinCrystals, winsPerDay);
 
                 int actualAverageCostPerWin = (int)NPlanetsRecursiveTestsForAverage(avg, 3, winsPerDay,pg);
-                var daylyCost = winsPerDay * actualAverageCostPerWin;
-                budgetinCrystals = budgetinCrystals - daylyCost;
+                var dailyCost = winsPerDay * actualAverageCostPerWin;
+                budgetinCrystals = budgetinCrystals - dailyCost;
 
                 winsPerDays.Add(GetRandomUsers(monthlyUsers / 30));
 
@@ -71,10 +71,7 @@ namespace ConsoleApp1
                 {
                     var random = ChooseRandom(items);
                     testSum.Add(random);
-                     
                     pg.Cells[j, 1].Value = random;
-              
-
                 }
 
                 session.Add(testSum.Sum());
