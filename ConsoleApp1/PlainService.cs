@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 budgetinCrystals = budgetinCrystals - dailyCost;
 
                 winsPerDays.Add(GetRandomUsers(monthlyUsers / 30));
-
+                
                 Console.WriteLine(budgetinCrystals);
             }
 
@@ -42,9 +42,26 @@ namespace ConsoleApp1
 
             //Console.WriteLine($"Accuracy: {accuracy}%, Average: {avg}, Actual: {actualCost}");
             decimal initialValue = DailyCrystals.ConvertToCrystals(budgetinEuro);
-            decimal dif = (budgetinCrystals / initialValue) * (decimal)budgetinEuro;
+            decimal dif = (budgetinCrystals / initialValue) * 1000;
+
             Console.WriteLine(dif);
 
+        }
+
+        public static void AboveOrBelowAverage(int dif, int avg)
+        {
+            if (dif > avg)
+            {
+                Console.WriteLine("Higher higher than average");
+            }
+            else if (dif < avg)
+            {
+                Console.WriteLine("Smaller than the average");
+            }
+            else
+            {
+                Console.WriteLine("The value is on point!");
+            }
         }
 
         public static int GetRandomUsers(int center)
